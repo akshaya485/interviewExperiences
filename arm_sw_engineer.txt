@@ -1,0 +1,63 @@
+int func() {
+static int i = 5;
+if (--i) {
+func();
+printf("%d",i);
+}
+return 0;
+}
+
+o/p: 0 0 0 0 0
+
+args: hour, minutes- any integer
+op: angle between hour hand and minute hand at given time.
+
+//rough
+ranges: 12 - 3 -45'
+		3 - 6  - 45'
+	
+	
+
+Print the below pattern for a given number of lines N (sample is for N= 5)
+00001
+00020
+00300
+04000
+50000
+
+
+
+
+void printFunc(int N){
+	int value = 1;
+	while(value <= N){ 
+		for(int i=1; i<=N; i++)
+		{
+			string temp="";
+			if((N-i)+1 == value)
+				temp+=value;
+			else
+				temp+= '0';
+		}
+		value++;
+		cout << temp << std::endl;
+	}
+}
+
+
+//rough
+
+value =1 N=5 i=1
+
+5-1 = 5 -> 0
+5-2 = 4 -> 00
+5-3 = 3-> 000
+5-4 = 2 -> 0000
+5-5 = 1 -> 00001
+
+value = 2 N=5 i=1
+5-1 = 5 -> 0
+5-2 = 4 -> 00
+5-3 = 3 -> 000
+5-4 = 2 -> 0002
+5-5 = 1 -> 00020

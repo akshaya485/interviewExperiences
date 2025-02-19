@@ -1,0 +1,28 @@
+
+#include <iostream>
+
+
+void swapFunction(string* a, string* b){
+	string temp="";
+	temp = *a;
+	*a = *b;
+	*b = temp;
+	
+}
+
+int main(){
+string s1 = "apple", s2="orange";
+swapFunction(&s1, &s2);
+return 0;
+}
+
+global and static variables - difference
+need for protobuffers ?
+built-in methods that get generated for proto variables ?
+difference between mutex and semaphore ?
+when an application already running - only one instance should run even though multiple invocations performed. how ?
+various ways to communicate between 2 processes ?
+why not use conditional_wait from mutex for signaling ? why semaphores ?
+template class in CPP with a static variable within it. If multiple instances are created multiple copies of static variable created ?
+
+

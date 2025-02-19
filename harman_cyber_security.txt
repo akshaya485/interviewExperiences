@@ -1,0 +1,166 @@
+Harman
+
+
+----- op prediction------
+
+#include <stdio.h>
+int* add(int a, int b)
+{
+int i= a+b;
+ return &i;
+}
+int main() {
+    int *num = add(3,6);
+    printf("%d", *num); 
+    return 0;
+}
+
+ output = 9
+ actual op = address of local variable cannot be returned.
+ 
+ 
+ ----------- explain --------------
+ size_t logSize = 512*1024;
+ 
+ std::shared_ptr<char> logData(new char[logSize]); // creation of a pointer to shared buffer space of declared size
+ 
+ std::shared_ptr<char> logData = std::make_shared<char>(logSize); // creation of a pointer to shared buffer space of declared size - 
+ 
+std::shared_ptr<char> logData(new char[logSize], std::default_delete<char[]>());
+
+
+
+---------------------------------------
+ip: [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+
+Maximum Sum: 6
+Subarray: [4, -1, 2, 1]
+
+
+max_sum_subarray(){
+	
+	int temp_sum = arr[0];
+	int curr_max = INT_MIN;
+	
+	int i = 1, j = 2; //start & end indices
+	
+	while(j < (arr.size()-1)){
+		
+		temp_sum +=arr[j];
+		
+		if (temp_sum > curr_max){
+			curr_max = temp_sum;
+			j++;
+		}
+		
+		else if (temp_sum < 0){
+			temp_sum = 0;
+			i++;
+			j++;
+		}
+		
+		else
+			j++;
+		
+	}
+
+}
+
+[-2, 1, -3, 4, -1, 2, 1, -5, 4]
+
+i 0, j 0 ts = -1 cs=-1
+i 1  
+
+-------- selinux concepts -----------
+
+.rc - service -> seclabel u:r:test_service_default:s0
+
+.te files -> type test_service_default domain(exec)
+		  -> all test_service_default:file_system_default {read, write}
+
+
+
+-----snippet for removal of duplicate from vector.----------
+
+
+
+vector<string> vec = { "abc", "abc", "de", "fgh", "ij", "ij"};
+
+map<string, int> count;
+
+for(auto s:vec){
+	count[s]++;
+}
+
+for(auto k,v:count){
+	if (count[k] > 1)
+		vec.erase(k);
+}
+
+---------------------------------
+ 
+ for(int i =0; i< vec.size(); i++){
+	count = 1;
+	for (int j = i+1; j<vec.size(); j++){
+		if (vec[i] == vec[j]){
+			count++;
+		}
+		if (count > 1)
+			vec.erase(j);
+ }
+ 
+ ------------2D pointers------------------------
+ 1. dangling ptr ?
+ 2. wild ptr ?
+ 3. smart pointers & types - ?
+ 4. void ptr ?
+ void* ptr
+ 
+ char* c = (char*) ptr;
+ 
+ 
+ 
+ -----memory segments----
+ higher address
+ 
+ heaps
+ 
+ 
+ 
+ 
+ 
+ stacks
+ 
+ uninitialized data 
+ 
+ intialized data 
+ 
+ text segment -->
+ 
+ 
+ ---fuction pointer----
+ return type - int*
+ 
+ args - 2 ints, 1 char*
+ 
+ int* func(int a, int b, char* c){...}
+ 
+ int* ptr = &func;
+ 
+ 
+ 
+--------- signleton class - design patterns in cpp-------
+ class A{
+	
+	public:
+		getInstance();
+	ptivate:
+		A a* = new A();
+ };
+ 
+ 
+ A* getInstance(){
+	if (a==nullptr)
+		a = new A();
+	return a;
+ }

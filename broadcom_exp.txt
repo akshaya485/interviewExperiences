@@ -1,0 +1,55 @@
+1. memory layout in C
+2. write code for factorial of n
+3. write syntax for malloc(), realloc()- explain working
+4. Insert a node to linkedlist at given position. use malloc for new node creation
+5. what are static variables ?
+6. write sample of singleton class
+7. reverse a vector
+8. functr - function objects
+9. iterators for stl. how it shall be used ?
+10. virtual inheritance and uses ?
+11. Polymorphism - conceptually explain
+12. difference between static library and dynamic library
+13. difference between system call and library call - give example for system call
+14. which cannot be overloaded constructor or destructor ?
+
+-------------------------------------------------------------------------------
+
+1. set kth bit of an unsigned8 integer
+2. x86 architecture experience ? EXSi exposure ?
+3. call by value & call by reference - explain with code
+4. difference between struct and union
+
+--------------------------------------------------------------------------------
+
+
+1. given an new application how would you implement from scratch ? steps followed ?
+2. diff between normal C and embedded C ?
+3. how do you reduce executable size and optimize it in compile time ? - flags like strip to be enabled.
+4. how do ensure from code if the ptr is deallocated or not ?
+5. how do you choose in which language C/CPP/Python to use for new requirement ?
+6. Difference between ARM and x86 architechture ?
+7. How do you choose ARM or x86 processor to be used for a new requirement ?
+8. what is the other constraint needed to be considered in choosing processor ?- ans: power drawn - ARM better
+9. Singleton class and its need
+10. how can you make an application run in kernel space - no device driver ? - rewrite entire kernel and customize
+11. how an application in user space can communicate with hardware ?
+12. how do you ensure your code is readable ?
+
+--------------------------------------------------------------------------------
+
+1. write a singleton class
+2. write syntax for malloc()
+3. What is memory leak. how you handle it ?
+4. difference between malloc and new
+5. How does free() know how much memory needs to be released ?
+6. difference between struct and class
+7. functr - function objects
+8. difference between const pointer and pointer to constant - write syntax and explain
+9. const int* ptr = &a and int* const ptr = &a ---> which is correct ?
+10. what happens in ioctl calls ?
+11. Difference between mutex and semaphore ?
+
+--------------------------------------------------------------------------------
+
+

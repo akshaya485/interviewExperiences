@@ -24,5 +24,6 @@ when an application already running - only one instance should run even though m
 various ways to communicate between 2 processes ?
 why not use conditional_wait from mutex for signaling ? why semaphores ?
 template class in CPP with a static variable within it. If multiple instances are created multiple copies of static variable created ?
+from main thread, multiple threads are created, make the main process wait untill all threads finish without join() ?
 
 

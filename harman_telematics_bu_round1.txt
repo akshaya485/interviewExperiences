@@ -1,0 +1,135 @@
+1. program for overriding:
+
+		class automotive{
+			public: 
+			 int colorCode;
+			 
+			 virtual string colorFunction(int color){//definition};
+		};
+
+		class car:public automotive{
+			string colorFunction(int color){
+				if(color == 1) return "red";
+				if(color == 2) return "blue";
+			}
+		};
+
+		class bike:public automotive{
+			string colorFunction(int color){
+				if(color == 1) return "green";
+				if(color == 2) return "yellow";
+			}
+		};
+
+		int main(){
+		car c;
+		bike b;
+		string carColor = c.colorFunction(1);
+		string bikeColor = b.colorFunction(1);
+
+		cout << "car color = " << carColor;
+		cout << "bike color = " << bikeColor;
+
+		retrun 0;
+		}
+
+
+2. implement - vector STL:
+
+template class<class T> vector{
+  
+  int f = func_nme(){}
+};
+
+
+
+3. two threads - one to print odd nos, one to print even nos. properly synchronized.
+
+#include<iostream>
+#include<thread>
+#include<mutex>
+#include<semaphore>
+
+unique_lock<mutex> mlock;
+int n = 0;
+
+void printEven(){
+	
+	while (n > 0){
+		sem_int(mlock, 1,1);
+		if(n%2 == 0){
+			cout << n;
+			
+		}
+		n--;
+		sem_post(mlock);
+	
+	}
+}
+
+void printOdd(){
+	
+	while (n > 0){
+	sem_init(mlock, 1, 1);
+		if(n%2 != 0){
+			cout << n;
+			
+		}
+		n--;
+		sem_post(mlock);
+	}
+	
+}
+
+int main(){
+
+n = 10;
+
+std::thread t1(printEven);
+std::thread t2(printOdd);
+
+t1.join();
+t2.join();
+
+return 0;
+}
+
+
+4. Reverse a linked list
+
+struct Node{
+	int data;
+	Node* next;
+};
+
+
+// 1 -> 2 -> 3 -> 4
+
+
+
+Node* reverseLinkedList(Node* head){
+	if(hed == nullptr)
+		return nullptr;
+		
+	Node* prev = head;
+	Node* curr = head;
+	Node* next = nullptr;
+	
+	while(curr != nullptr && curr->next!=nullptr){
+		
+		
+		next = curr->next;
+//////////	curr -> next = prev; // right place!
+		prev = curr;
+		curr = next;
+//////////      curr -> next = prev; // wrong place
+		
+	}
+	
+	head = curr;
+	return head;
+		
+}
+
+5. what are lambda functions ? difference between  lambda & inline functions.
+6. weak_ptr & smart pointers ?

@@ -1,0 +1,283 @@
+//lambda functions
+int a;
+int f = [&a](int a, int b){ 
+	return a+b;
+}
+//will this lambda function allow double datatype parameters ? - yes with truncation
+cout << f(5.0,5.0);
+
+
+explain concept of shared and weak pointer with code
+//cross questions: 
+1. explain reference count in each place
+2. difference between new and make_shared ?
+3. purpose of weak pointer ?
+
+void modify(std::shared_ptr<int> ptr){
+	std::weak_ptr<int> wp = ptr;
+	*wp.lock() +=10;
+}
+
+int main()
+{
+	std::shared_ptr<int> sp = std::make_shared<int> (5);
+	cout << "sp value = " << *sp;
+	return 0;
+}
+
+
+Implement shared_ptr class replicating std::shared_ptr and its functionalities:
+
+template<typename T> 
+class sharedPtr{
+	T data;
+	static int reference_count;
+	
+	sharedPtr(T value){
+		data = new T(value); or data = value(my ans) ???
+		reference_count++;
+	}	
+	
+	sharedPtr(sharedPtr& newObj){
+		//data = newObj.data;
+	}
+	
+	~sharedPtr(){
+		if(reference_count<=0)
+		delete data;
+	}
+
+};
+
+0x00200 ---> ans for what is the address of sp1 & sp2 ?
+0x12340 ---> ans for address of spD
+int main(){
+	sharedPtr<int> sp1 = 5;
+	sharedPtr<int> sp2 = sp1;
+	
+	sharedPtr<double> spD = 2.3;
+	
+}
+
+
+
+//do you see any problem in this ?
+// what is the reference count in this case ?
+//solution for the issue ? - ans: weak pointer
+
+class A{
+	shared_ptr<B> b;
+}
+class B{
+    shared_ptr<A> a;
+}
+
+
+explain vptr and vtable with program
+class A{
+	public:
+		virtual void display(int x){
+			cout << " A(x) = " << x; 
+		}
+};
+
+class B: public A{
+	public:
+		void display(int x){
+			cout << " B(x) = " << (x+5);
+		}
+		
+};
+
+int main(){
+	
+	A a;
+	A newA;
+	
+	B b;
+	
+	b.display(5); //--prints 10
+	
+	B* newB = &a;
+	newB.display(5); //--prints 5
+	return 0;
+}
+
+// in above code what is the size of class A and class B ?
+// how many vtable and vptrs are created ?
+// how does the derived class differentiate between normal pointer and vptr ? 
+	Eg: class A has int* data, associated vptr as well... how to differentiate ?
+	
+
+//program to find array size ?
+int main(){
+	int arr[] = {1,2,3,4,5,6};
+	int n = sizeof(arr)/sizeof(arr[0]);
+	cout << n;
+	return 0;
+}
+
+//int arr[100] = {1,2,3,4,5} --> valid or invalid ?
+//int arr[100] = {} --> what size this code will return ?
+
+
+
+// previous round questions -> two threads - one to print odd nos, one to print even nos.
+ 
+#include<iostream>
+#include<thread>
+#include<mutex>
+#include<semaphore.h>
+using namespace std;
+ 
+mutex mlock;
+int n = 0;
+ 
+void printEven(){
+	while (n > 0){
+		sem_init(mlock, 1,1);
+		if(n%2 == 0){
+			cout << n;
+		}
+		n--;
+		sem_post(mlock);
+	}
+}
+ 
+void printOdd(){
+	while (n > 0){
+	sem_init(mlock, 1, 1);
+		if(n%2 != 0){
+			cout << n;
+		}
+		n--;
+		sem_post(mlock);
+	}
+}
+ 
+int main(){
+ 
+n = 10;
+ 
+std::thread t1(printEven);
+std::thread t2(printOdd);
+ 
+t1.join();
+t2.join();
+ 
+return 0;
+}
+
+//in above code why you used semaphore ?
+
+
+
+//in below 2 functions why not use only mutex ?
+// why conditional variable or semaphore is required ?
+// what is the scope of the lock in line no:181 and line no:195?
+void printEven(){
+	while (n > 0)
+	{
+		std::lock_guard<mutex> lock(m);
+		{
+			if(n%2 == 0){
+				cout << n;
+			}
+			n--;
+		} //released
+
+	}
+	prift();
+}
+ 
+void printOdd(){
+	while (n > 0){
+		std::lock_guard<mutex> lock(m);
+		if(n%2 != 0){
+			cout << n;
+		}
+		n--;
+	
+	}
+}
+
+
+Answer: ---------------------------------------------------
+
+Here's a **C++ program** that uses **std::mutex** and **std::condition_variable** to ensure that one thread prints even numbers while the other prints odd numbers in sequence up to `n`.  
+
+```cpp
+#include <iostream>
+#include <thread>
+#include <mutex>
+
+using namespace std;
+
+mutex mtx;
+int counter = 1;
+int n;  // Global variable to store the upper limit
+
+void printEven() {
+    while (true) {
+        lock_guard<mutex> lock(mtx);
+        if (counter > n) break;
+        if (counter % 2 == 0) {
+            cout << counter << " ";
+            counter++;
+        }
+    }
+}
+
+void printOdd() {
+    while (true) {
+        lock_guard<mutex> lock(mtx);
+        if (counter > n) break;
+        if (counter % 2 == 1) {
+            cout << counter << " ";
+            counter++;
+        }
+    }
+}
+
+int main() {
+    cout << "Enter the value of n: ";
+    cin >> n;
+
+    thread t1(printEven);
+    thread t2(printOdd);
+
+    t1.join();
+    t2.join();
+
+    return 0;
+}
+```
+
+---
+
+### **How It Works**
+1. **Shared Variable (`counter`)**:  
+   - A global counter starts at `1`.  
+   - One thread prints **odd** numbers, the other prints **even** numbers.
+  
+2. **Mutex (`mtx`)**:  
+   - Ensures only one thread can access the counter at a time.
+   - Uses `lock_guard<mutex>` to automatically manage locks.
+
+3. **Thread Synchronization**:  
+   - Each thread checks if `counter` is **odd/even** and prints it.
+   - Both threads keep running until `counter > n`.
+
+---
+
+### **Example Output (for `n = 10`)**
+```
+1 2 3 4 5 6 7 8 9 10
+```
+
+---
+✅ **No busy-waiting**  
+✅ **Ensures alternate execution using `mutex`**  
+✅ **Threads exit gracefully when `counter > n`**  
+
+Would you like a more optimized version using `condition_variable`? 😊

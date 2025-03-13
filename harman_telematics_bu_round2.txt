@@ -281,3 +281,8 @@ int main() {
 ✅ **Threads exit gracefully when `counter > n`**  
 
 Would you like a more optimized version using `condition_variable`? 😊
+
+
+
+// what is an alternative for shared_ptr in cpp ?
+// How can we overload new operator for automatic garbage collection/free/delete ptr/obj ?
